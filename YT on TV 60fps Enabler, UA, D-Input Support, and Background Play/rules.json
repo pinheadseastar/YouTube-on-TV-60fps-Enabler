@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "User-Agent",
+          "operation": "set",
+          "value": "Mozilla/5.0 (Linux; Android 12) Cobalt/24.lts.20-gold (unlike Gecko) v8/11.4.183.40-jit gles Starboard/15, (Sony, PS4_Pro, Wired)"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "youtube.com/tv",
+      "resourceTypes": ["main_frame", "sub_frame", "xmlhttprequest", "other"]
+    }
+  }
+]

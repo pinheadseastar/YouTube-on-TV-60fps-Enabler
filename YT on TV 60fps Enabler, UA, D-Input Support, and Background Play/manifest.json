@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "YT on TV 60fps Enabler, UA, D-Input Support, and Background Play",
+  "version": "1.0",
+  "description": "Enables 60FPS on YouTube on TV (Leanback) interface for 720p+ resolutions, with added user agent spoofing, D-Input support, and event blocking for background play.",
+  "permissions": [
+    "declarativeNetRequest",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/tv*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "ruleset_1",
+      "enabled": true,
+      "path": "rules.json"
+    }]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["*://*.youtube.com/*"]
+    }
+  ]
+}
