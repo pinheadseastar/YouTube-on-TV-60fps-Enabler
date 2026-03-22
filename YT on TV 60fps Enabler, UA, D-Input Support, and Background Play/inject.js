@@ -97,12 +97,17 @@
         return originalMatchMedia.apply(this, arguments);
     };
 
-    // 5. Visibility & Event Blocking - Ultra-Aggressive Mode
-    forceProp(document, 'visibilityState', 'visible');
-    forceProp(document, 'hidden', false);
-    ['webkitHidden', 'mozHidden', 'msHidden'].forEach(p => forceProp(document, p, false));
-    ['webkitVisibilityState', 'mozVisibilityState', 'msVisibilityState', 'visibilityState'].forEach(p => forceProp(document, p, 'visible'));
-    document.hasFocus = () => true;
+    // 5. Visibility & Event Blocking - Ultra-Aggressive Nuclear Mode
+    const enforceVisibility = () => {
+        forceProp(document, 'visibilityState', 'visible');
+        forceProp(document, 'hidden', false);
+        ['webkitHidden', 'mozHidden', 'msHidden'].forEach(p => forceProp(document, p, false));
+        ['webkitVisibilityState', 'mozVisibilityState', 'msVisibilityState', 'visibilityState'].forEach(p => forceProp(document, p, 'visible'));
+        forceProp(document, 'hasFocus', () => true);
+    };
+    enforceVisibility();
+    // Nuclear Loop: Re-enforce every 500ms in case the app tries to override
+    setInterval(enforceVisibility, 500);
 
     const blockEvents = [
         'blur', 'focus', 'mouseleave', 'mouseout', 'lostpointercapture', 
